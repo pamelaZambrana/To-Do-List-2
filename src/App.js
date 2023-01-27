@@ -1,6 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import TaskListComponent from './components/containers/task.list';
+import "./styles/taskStyle.scss"
+import Father from './components/containers/father';
 /* import Ejemplo1 from './hooks/ejemplo1';
 import Ejemplo2 from './hooks/Ejemplo2'; */
 /* import Greeting from './components/pure/greeting'; */
@@ -24,6 +25,7 @@ function App() {
           <h3>Contenido del props.children</h3>
         </Ejemplo4> */}
       {/*</header>*/}
+      {/* <Father></Father> */}
       <TaskListComponent></TaskListComponent>
     </div>
   );

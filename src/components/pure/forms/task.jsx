@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
+
 import { Task } from '../../../models/task.class';
 import { LEVELS } from '../../../models/levels.enum';
 
 
-const TaskComponent = ({task}) => {
+const TaskComponent = ({task, complete, removeTask}) => {
     useEffect(() => {
         console.log("tarea creada")
         return () => {
@@ -38,11 +39,22 @@ const TaskComponent = ({task}) => {
     function taskCompletedIcon(){
         if(task.completed){
             return(
-            <i className='bi bi-toggle-on' style={{ color:"green" }}></i>
+            <i 
+                onClick={ ()=>complete(task) }
+                className='bi bi-toggle-on task-action' 
+                style={{ color:"green" }}
+            >
+
+            </i>
             );
         }else{
             return(
-                <i className='bi bi-toggle-off' style={{ color:"gray" }}></i>
+                <i 
+                onClick={ ()=>complete(task) }
+                className='bi bi-toggle-off task-action' 
+                style={{ color:"gray" }}
+                >
+                </i>
             );
         };
     };
@@ -63,7 +75,12 @@ const TaskComponent = ({task}) => {
             {/*Todo: sustituir por íconos*/}
                 
                 {taskCompletedIcon()}
-                <i className='bi bi-trash' style={{ color:"tomato", fontSize:"16px" }}></i>
+                <i 
+                    className='bi bi-trash task-action' 
+                    style={{ color:"tomato", fontSize:"16px" }}
+                    onClick={()=>removeTask(task)}
+                >
+                </i>
             </td>
             
         </tr>
@@ -72,7 +89,9 @@ const TaskComponent = ({task}) => {
 
 
 TaskComponent.propTypes = {
-    task: PropTypes.instanceOf(Task)
+    task: PropTypes.instanceOf(Task).isRequired,
+    complete: PropTypes.func.isRequired,
+    removeTask: PropTypes.func.isRequired,
 };
 
 

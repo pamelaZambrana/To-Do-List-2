@@ -26,6 +26,29 @@ const TaskListComponent = () => {
         console.log("ToDo: cambiar el estado de una tarea")
     }
 
+    function completeTask(task){
+        console.log("Complete this task:", task);
+        const index=tasks.indexOf(task);
+        const tempTasks=[...tasks];
+        tempTasks[index].completed=!tempTasks[index].completed;
+        /*Update the state of the component and it will update the 
+        iteration of the task in order to show the updated task*/
+        setTasks(tempTasks);
+    };
+
+    function deleteTask(task){
+        console.log("Delete this task:", task);
+        const index=tasks.indexOf(task);
+        const tempTasks=[...tasks];
+        tempTasks.splice(index,1);
+        setTasks(tempTasks);
+    }
+    function addTask(task){
+        console.log("Add this task:", task);
+        const tempTasks=[...tasks];
+        tempTasks.push(task);
+        setTasks(tempTasks);
+    }
     return (
         <div>
             <div className='col-12'>
@@ -49,6 +72,8 @@ const TaskListComponent = () => {
                                             <TaskComponent
                                                 key= {index}
                                                 task={task}
+                                                complete={ completeTask }
+                                                removeTask={ deleteTask }
                                             >
                                             </TaskComponent>
                                         )
@@ -57,9 +82,10 @@ const TaskListComponent = () => {
                             </tbody>
                             
                         </table>
-                        <TaskForm></TaskForm>
+                        
                     </div>
                 </div>
+                <TaskForm add={ addTask }></TaskForm>
             </div>
             
         </div>
