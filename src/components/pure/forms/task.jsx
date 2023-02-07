@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-
 import { Task } from '../../../models/task.class';
+import "../../../styles/taskStyle.scss";
 import { LEVELS } from '../../../models/levels.enum';
 
 
@@ -60,7 +60,7 @@ const TaskComponent = ({task, complete, removeTask}) => {
     };
 
     return (
-        <tr className='fw-normal'>
+        <tr className={task.completed ? " fw-normal task-completed" : "fw-normal task-pending"}>
             <th>
                 <span className='ms-2'>{ task.name }</span>
             </th>

@@ -2,6 +2,10 @@ import './App.css';
 import TaskListComponent from './components/containers/task.list';
 import "./styles/taskStyle.scss"
 import Father from './components/containers/father';
+import OptionalRender from './components/pure/OptionalRender';
+import LoginFormik from './components/pure/forms/loginFormik';
+import RegisterFormik from './components/pure/forms/registerFormik';
+import TaskFormik from './components/pure/forms/taskFormik';
 /* import Ejemplo1 from './hooks/ejemplo1';
 import Ejemplo2 from './hooks/Ejemplo2'; */
 /* import Greeting from './components/pure/greeting'; */
@@ -26,6 +30,10 @@ function App() {
         </Ejemplo4> */}
       {/*</header>*/}
       {/* <Father></Father> */}
+      {/* <OptionalRender></OptionalRender> */}
+      {/* <LoginFormik></LoginFormik> */}
+      {/* <RegisterFormik></RegisterFormik> */}
+      {/* <TaskFormik></TaskFormik> */}
       <TaskListComponent></TaskListComponent>
     </div>
   );

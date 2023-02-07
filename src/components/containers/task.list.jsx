@@ -3,6 +3,7 @@ import { LEVELS } from '../../models/levels.enum';
 import { Task } from '../../models/task.class';
 import TaskComponent from '../pure/forms/task';
 import TaskForm from '../pure/forms/taskForm';
+import TaskFormik from '../pure/forms/taskFormik';
 
 const TaskListComponent = () => {
     
@@ -16,7 +17,10 @@ const TaskListComponent = () => {
     //control del ciclo de vida
     useEffect(() => {
         console.log("Task state has been modified");
-        setLoading(false);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+        
         return () => {
             console.log("TaskList component is going to unmount...")
         };
@@ -49,6 +53,48 @@ const TaskListComponent = () => {
         tempTasks.push(task);
         setTasks(tempTasks);
     }
+
+    let Table= ()=>{
+        return(
+            <table>
+                <thead>
+                    <tr>
+                        <th scope='col'>Title</th>
+                        <th scope='col'>Description</th>     
+                        <th scope='col'>Priority</th>       
+                        <th scope='col'>Actions</th>        
+                    </tr>
+                </thead>
+                <tbody>
+                    { tasks.map((task, index)=> {
+                            return (
+                                <TaskComponent
+                                    key= {index}
+                                    task={task}
+                                    complete={ completeTask }
+                                    removeTask={ deleteTask }
+                                >
+                                </TaskComponent>
+                            )
+                        }
+                    )}                             
+                </tbody>
+                            
+            </table>
+        );
+    };
+
+    let tasksTable;
+    if(tasks.length>0){
+        tasksTable=<Table></Table>
+    }else{
+       tasksTable = (
+       <div>
+            <h3>There are not task to show</h3>
+            <h4>Please create a task.</h4>
+       </div>
+       )
+    };
     return (
         <div>
             <div className='col-12'>
@@ -57,35 +103,14 @@ const TaskListComponent = () => {
                         <h5>Your tasks:</h5>
                     </div>
                     <div className='card-body' style={ {position:"relative", height:"400px"}} data-mdb-perfect-scrollbar="true">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th scope='col'>Title</th>
-                                    <th scope='col'>Description</th>     
-                                    <th scope='col'>Priority</th>       
-                                    <th scope='col'>Actions</th>        
-                                </tr>
-                            </thead>
-                            <tbody>
-                                { tasks.map((task, index)=> {
-                                        return (
-                                            <TaskComponent
-                                                key= {index}
-                                                task={task}
-                                                complete={ completeTask }
-                                                removeTask={ deleteTask }
-                                            >
-                                            </TaskComponent>
-                                        )
-                                    }
-                                )}                             
-                            </tbody>
-                            
-                        </table>
+                        {loading ? <p className="placeholder-glow">Loading tasks...<span className="placeholder col-12"></span></p>: tasksTable }
                         
                     </div>
                 </div>
-                <TaskForm add={ addTask }></TaskForm>
+                <TaskFormik
+                    add={ addTask }
+                    lengthList={tasks.length}
+                ></TaskFormik>
             </div>
             
         </div>

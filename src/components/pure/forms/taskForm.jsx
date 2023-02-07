@@ -3,11 +3,23 @@ import PropTypes from 'prop-types';
 import { LEVELS } from '../../../models/levels.enum';
 import { Task } from '../../../models/task.class';
 
-const TaskForm = ({ add }) => {
+const TaskForm = ({ add, lengthList }) => {
     const nameRef=useRef("");
     const descriptionRef=useRef("");
     const levelRef=useRef(LEVELS.NORMAL);
 
+    const normalStyle={
+        color: "blue",
+        fontWeight: "bold"
+    }
+    const urgentStyle={
+        color:"yellow",
+        fontWeight:"bold"
+    }
+    const blockingStyle={
+        color:"tomato",
+        fontWeight: "bold"
+    }
     function addTask(e){
         e.preventDefault();
         const newTask=new Task(
@@ -42,34 +54,45 @@ const TaskForm = ({ add }) => {
                     className="form-control form-control-lg"
                     required   
                 ></input>
-                <label 
+                {/* <label 
                     htmlFor='selectLevel'
                     className='sr-only'
                 >
                     Priority
-                </label>
+                </label> */}
                 <select
                     ref={ levelRef }
                     defaultValue={ LEVELS.NORMAL }
-                    id="selectLevel" 
+                    id="selectLevel"
+                    className="form-control form-control-lg" 
                 >
-                    <option value ={ LEVELS.NORMAL}>Normal</option>
-                    <option value ={ LEVELS.URGENT}>Urgent</option>
-                    <option value ={ LEVELS.BLOCKING}>Blocking</option>
+                    <option 
+                        value ={ LEVELS.NORMAL}
+                        style={ normalStyle }
+                    >Normal</option>
+                    <option 
+                        value ={ LEVELS.URGENT}
+                        style={ urgentStyle }
+                    >Urgent</option>
+                    <option 
+                        value ={ LEVELS.BLOCKING}
+                        style={ blockingStyle }
+                    >Blocking</option>
                 </select>
-            </div>
-            <button 
+                <button 
                 type='submit'
                 className='btn btn-success btn-lg ms-2'
-            >
-                Add
-            </button>
+                >
+                {(lengthList > 0) ? "Add new task" : "Create your first task"}
+                </button>
+            </div>
         </form>
     );
 };
 
 TaskForm.propTypes={
-    add: PropTypes.func.isRequired
+    add: PropTypes.func.isRequired,
+    lengthList: PropTypes.number.isRequired
 }
 
 export default TaskForm;
