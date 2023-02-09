@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 
@@ -16,11 +17,12 @@ const loginSchema=Yup.object().shape(
 );
 
 
-const LoginFormik = () => {
+const LoginFormik = ({logged}) => {
     const initialCredentials={
         email:"",
         password:""
-    }
+    };
+const navigate=useNavigate();
     return (
         <div>
             <h1>Login Formik</h1>
@@ -33,6 +35,10 @@ const LoginFormik = () => {
                 await new Promise((r) => setTimeout(r, 1000));
                 alert(JSON.stringify(values, null, 2));
                 localStorage.setItem("credentials",values);
+                logged();
+                navigate("/dashboard");
+                console.log("logged-prev:",logged);
+
                 }}            
             >
             {/* //we get props from Formik */}
@@ -73,7 +79,7 @@ const LoginFormik = () => {
                             type="password"
                         />
                         <button type="submit">Submit</button>
-                        { isSubmitting ? (<p>Login your cedentiasl...</p>) : null}
+                        { isSubmitting ? (<p>Login your credentials!...</p>) : null}
                     </Form>
                 )}
                 

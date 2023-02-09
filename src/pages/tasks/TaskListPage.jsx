@@ -1,6 +1,6 @@
 import React from 'react';
 import TaskListComponent from '../../components/containers/task.list';
-const TaskPage = () => {
+const TaskListPage = () => {
     return (
         <div>
             <TaskListComponent></TaskListComponent>
@@ -8,4 +8,4 @@ const TaskPage = () => {
     );
 }
 
-export default TaskPage;
+export default TaskListPage;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { User } from "../../../models/user.class";
@@ -46,7 +47,7 @@ const RegisterFormik = () => {
     const submit = (values)=>{
         alert("Register user");
     }
-
+    const navigate=useNavigate();
     return (
         <div>
             <h4>Register Formik</h4>
@@ -57,6 +58,7 @@ const RegisterFormik = () => {
                 onSubmit={async (values) => {
                 await new Promise((r) => setTimeout(r, 1000));
                 alert(JSON.stringify(values, null, 2));
+                navigate("/login");
                 }}
             >
              {({   values,
